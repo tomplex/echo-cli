@@ -10,6 +10,14 @@ from click import echo
 from utils import ensure_path_exists
 
 
+def process_input(user_input):
+    if user_input == '\q':
+        echo("Bye")
+        exit(0)
+    else:
+        echo(user_input)
+
+
 def main():
     user_home = os.environ.get('HOME', '')
     echo_path = f"{user_home}/.echo"
@@ -21,7 +29,7 @@ def main():
                                 history=FileHistory(f'{echo_path}/echo-history'),
                                 auto_suggest=AutoSuggestFromHistory()
                                 )
-            echo(user_input)
+            process_input(user_input)
         except KeyboardInterrupt:
             exit(0)
 
